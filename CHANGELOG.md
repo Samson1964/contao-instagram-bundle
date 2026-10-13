@@ -1,5 +1,14 @@
 # Instagram-Bundle Changelog
 
+## Version 1.0.1 (2026-10-13)
+
+* Fix: Das Element hatte keinen Abstand zum nächsten Inhaltselement; sichtbar waren
+  nur die 12 Pixel, die `embed.js` dem Beitrag als Inline-Stil mitgibt. Jetzt sind es
+  20 Pixel, mit und ohne geladenes Skript.
+* Add: Stildatei `instagram.css`, je Seite einmal über `$GLOBALS['TL_CSS']`
+  eingebunden. Der Abstand lässt sich über `--instagram-abstand` ändern oder mit dem
+  Wert `0` abschalten.
+
 ## Version 1.0.0 (2026-10-13)
 
 * Add: Inhaltselement „Instagram" in der Gruppe der Medienelemente. Zeigt einen

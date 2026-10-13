@@ -1,0 +1,19 @@
+/*
+ * Contaos eigene Stildateien geben Inhaltselementen keinen Außenabstand; ohne
+ * diese Regel trennen nur die 12 Pixel, die embed.js dem Beitrag mitgibt, das
+ * nächste Element vom Beitrag. Wer einen anderen Abstand will, überschreibt
+ * --instagram-abstand am Element; der Wert 0 schaltet ihn ab.
+ */
+.ce_instagram {
+    margin-bottom: var(--instagram-abstand, 20px);
+}
+
+/*
+ * embed.js ersetzt das blockquote durch einen iframe und schreibt ihm den
+ * Außenabstand "0 0 12px" als Inline-Stil mit. Der käme zum Abstand des
+ * Elements hinzu; gegen einen Inline-Stil hilft nur !important. Die Regel gilt
+ * auch für das blockquote selbst, solange das Skript noch nicht geladen ist.
+ */
+.ce_instagram .instagram-media {
+    margin-bottom: 0 !important;
+}

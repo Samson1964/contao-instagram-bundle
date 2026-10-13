@@ -71,12 +71,18 @@ class Instagram extends ContentElement
 	}
 
 	/**
-	 * Füllt das Template mit der Adresse des Beitrags und meldet das Skript an.
+	 * Füllt das Template mit der Adresse des Beitrags und meldet Skript und
+	 * Stildatei an.
 	 *
-	 * Das Skript kommt über $GLOBALS['TL_BODY'] ans Ende der Seite. Der feste
-	 * Schlüssel sorgt dafür, dass es auch bei mehreren Elementen auf einer
-	 * Seite nur einmal eingebunden wird; ein Durchlauf von embed.js wandelt
-	 * alle Beiträge der Seite um.
+	 * Das Skript kommt über $GLOBALS['TL_BODY'] ans Ende der Seite, die
+	 * Stildatei über $GLOBALS['TL_CSS'] in den Seitenkopf. Die festen
+	 * Schlüssel sorgen dafür, dass beides auch bei mehreren Elementen auf
+	 * einer Seite nur einmal eingebunden wird; ein Durchlauf von embed.js
+	 * wandelt alle Beiträge der Seite um.
+	 *
+	 * Der Zusatz |static erlaubt Contao, die Stildatei mit den übrigen
+	 * zusammenzufassen. Sie steht damit vor den Stildateien des Themes, die
+	 * den Abstand deshalb ohne Kunstgriffe überschreiben können.
 	 */
 	protected function compile(): void
 	{
@@ -85,6 +91,7 @@ class Instagram extends ContentElement
 		$this->Template->captioned = (bool) $this->instagramCaption;
 		$this->Template->linkText = $GLOBALS['TL_LANG']['MSC']['instagramAnsehen'] ?? 'Diesen Beitrag auf Instagram ansehen';
 
+		$GLOBALS['TL_CSS']['contaoinstagram'] = 'bundles/contaoinstagram/instagram.css|static';
 		$GLOBALS['TL_BODY']['contaoinstagram'] = '<script async src="'.PostLink::EMBED_SCRIPT.'"></script>';
 	}
 

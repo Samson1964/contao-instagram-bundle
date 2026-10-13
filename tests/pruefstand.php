@@ -18,6 +18,7 @@ declare(strict_types=1);
 use Contao\ContentModel;
 use Contao\Controller;
 use Contao\CoreBundle\ContaoCoreBundle;
+use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\ManagerBundle\HttpKernel\ContaoKernel;
 use Contao\System;
 use Schachbulle\ContaoInstagramBundle\ContentElements\Instagram;
@@ -186,6 +187,18 @@ melde('Überschrift ausgegeben', false !== strpos($html, '<h2>Unser Beitrag</h2>
 melde('blockquote mit Adresse, Fassung und Bildunterschrift', false !== strpos($html, '<blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/fA9uwTtkSN/" data-instgrm-version="14" data-instgrm-captioned>'));
 melde('Ersatzlink im blockquote', false !== strpos($html, '<a href="https://www.instagram.com/p/fA9uwTtkSN/" target="_blank" rel="noopener">Diesen Beitrag auf Instagram ansehen</a>'));
 melde('Skript einmal in TL_BODY angemeldet', '<script async src="https://www.instagram.com/embed.js"></script>' === ($GLOBALS['TL_BODY']['contaoinstagram'] ?? null));
+melde('Stildatei einmal in TL_CSS angemeldet', 'bundles/contaoinstagram/instagram.css|static' === ($GLOBALS['TL_CSS']['contaoinstagram'] ?? null));
+
+// Fehlt die Datei im Webverzeichnis, lässt Contao sie beim Zusammenfassen
+// stillschweigend weg — der Abstand wäre dann ohne jede Meldung wieder fort.
+$stildatei = $container->getParameter('contao.web_dir') . '/bundles/contaoinstagram/instagram.css';
+melde('Stildatei im Webverzeichnis veröffentlicht', is_file($stildatei), is_file($stildatei) ? '' : 'assets:install ausführen');
+melde('Stildatei setzt den Abstand auf 20 Pixel', is_file($stildatei) && false !== strpos((string) file_get_contents($stildatei), 'margin-bottom: var(--instagram-abstand, 20px);'));
+
+// Der Platzhalter trägt in beiden Fassungen die Nonce des Frameworks; Contao
+// ersetzt ihn beim Ausliefern der Seite durch die Verweise auf die Stildateien.
+$kopf = Controller::replaceDynamicScriptTags('[[TL_CSS_' . ContaoFramework::getNonce() . ']]');
+melde('Stildatei landet im Seitenkopf', false !== strpos($kopf, 'bundles/contaoinstagram/instagram.css'), false !== strpos($kopf, 'instagram.css') ? '' : trim($kopf));
 
 echo "\n--- Markup ---\n" . trim($html) . "\n--- Ende ---\n\n";
 

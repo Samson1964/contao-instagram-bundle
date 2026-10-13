@@ -60,6 +60,25 @@ Skript nicht lädt.
 Die Breite bestimmt Instagram selbst (mindestens 326, höchstens 540 Pixel). Im Backend
 zeigt die Elementliste statt des Beitrags nur den eingetragenen Link.
 
+### Abstand zum nächsten Element
+
+Das Bundle bringt die Stildatei `bundles/contaoinstagram/instagram.css` mit und bindet
+sie je Seite einmal ein. Sie gibt dem Element 20 Pixel Abstand nach unten und nimmt dem
+Beitrag dafür die 12 Pixel, die `embed.js` ihm als Inline-Stil mitgibt — sonst kämen
+beide zusammen.
+
+Ein anderer Abstand lässt sich im eigenen Stylesheet über eine CSS-Variable einstellen,
+der Wert `0` schaltet ihn ab:
+
+```css
+.ce_instagram {
+    --instagram-abstand: 40px;
+}
+```
+
+Die Stildatei steht vor denen des Themes; eine eigene Regel
+`.ce_instagram { margin-bottom: … }` überschreibt sie deshalb ebenfalls.
+
 ### Template
 
 Das Template heißt `ce_instagram` und lässt sich wie üblich im Ordner `templates`
@@ -97,6 +116,7 @@ php tests/pruefstand.php /pfad/zur/contao-installation
 | `src/EventListener/PostLinkListener.php` | `save_callback` an `tl_content.instagramUrl`: prüft und vereinheitlicht den Link |
 | `src/ContentElements/Instagram.php` | Das Inhaltselement (klassisch über `$GLOBALS['TL_CTE']`, läuft so unter 4.13 und 5) |
 | `src/Resources/contao/templates/ce_instagram.html5` | Frontend-Template |
+| `src/Resources/public/instagram.css` | Abstand zum nächsten Element |
 
 ## Lizenz
 
