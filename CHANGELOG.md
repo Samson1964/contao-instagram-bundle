@@ -1,5 +1,13 @@
 # Instagram-Bundle Changelog
 
+## Version 1.1.0 (2026-10-13)
+
+* Change: Der Beitrag füllt jetzt die Spalte bis höchstens 540 Pixel. Bisher blieb er
+  immer 328 Pixel breit, weil `embed.js` Breite und Höchstbreite nur aus einem
+  Inline-Stil des `blockquote` übernimmt, den das Template nicht setzt. Die Höhe passt
+  Instagram selbst an.
+* Add: Die Höchstbreite lässt sich über `--instagram-breite` ändern.
+
 ## Version 1.0.1 (2026-10-13)
 
 * Fix: Das Element hatte keinen Abstand zum nächsten Inhaltselement; sichtbar waren

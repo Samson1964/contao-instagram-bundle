@@ -57,21 +57,27 @@ Das Skript wird je Seite nur einmal eingebunden (am Ende des `body`), auch wenn 
 Beiträge auf der Seite stehen. Der Link im `blockquote` bleibt sichtbar, falls das
 Skript nicht lädt.
 
-Die Breite bestimmt Instagram selbst (mindestens 326, höchstens 540 Pixel). Im Backend
-zeigt die Elementliste statt des Beitrags nur den eingetragenen Link.
+Im Backend zeigt die Elementliste statt des Beitrags nur den eingetragenen Link.
 
-### Abstand zum nächsten Element
+### Breite und Abstand
 
 Das Bundle bringt die Stildatei `bundles/contaoinstagram/instagram.css` mit und bindet
-sie je Seite einmal ein. Sie gibt dem Element 20 Pixel Abstand nach unten und nimmt dem
-Beitrag dafür die 12 Pixel, die `embed.js` ihm als Inline-Stil mitgibt — sonst kämen
-beide zusammen.
+sie je Seite einmal ein. Sie regelt zweierlei:
 
-Ein anderer Abstand lässt sich im eigenen Stylesheet über eine CSS-Variable einstellen,
-der Wert `0` schaltet ihn ab:
+* **Breite:** Der Beitrag füllt die Spalte, wird aber höchstens 540 Pixel breit — das
+  sind die Werte aus dem Einbettungscode von Instagram. Schmaler als 326 Pixel (plus
+  Rand) wird er nicht; diese Mindestbreite setzt `embed.js` selbst, in einer engeren
+  Spalte ragt der Beitrag über deren Rand hinaus. Die Höhe passt Instagram an die Breite an.
+* **Abstand:** Das Element hält 20 Pixel Abstand zum nächsten. Die 12 Pixel, die
+  `embed.js` dem Beitrag als Inline-Stil mitgibt, entfallen dafür — sonst kämen beide
+  zusammen.
+
+Beides lässt sich im eigenen Stylesheet über CSS-Variablen einstellen. Beim Abstand
+schaltet der Wert `0` ihn ab, bei der Breite sind auch Werte über 540 Pixel möglich:
 
 ```css
 .ce_instagram {
+    --instagram-breite: 400px;
     --instagram-abstand: 40px;
 }
 ```
@@ -116,7 +122,7 @@ php tests/pruefstand.php /pfad/zur/contao-installation
 | `src/EventListener/PostLinkListener.php` | `save_callback` an `tl_content.instagramUrl`: prüft und vereinheitlicht den Link |
 | `src/ContentElements/Instagram.php` | Das Inhaltselement (klassisch über `$GLOBALS['TL_CTE']`, läuft so unter 4.13 und 5) |
 | `src/Resources/contao/templates/ce_instagram.html5` | Frontend-Template |
-| `src/Resources/public/instagram.css` | Abstand zum nächsten Element |
+| `src/Resources/public/instagram.css` | Breite des Beitrags und Abstand zum nächsten Element |
 
 ## Lizenz
 

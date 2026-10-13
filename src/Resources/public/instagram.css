@@ -17,3 +17,21 @@
 .ce_instagram .instagram-media {
     margin-bottom: 0 !important;
 }
+
+/*
+ * Breite und Höchstbreite übernimmt embed.js nur aus einem Inline-Stil des
+ * blockquote, den das Template nicht setzt. Ohne diese Regel bleibt der iframe
+ * bei seiner Mindestbreite von 326 Pixel plus Rand stehen, gleich wie breit
+ * die Spalte ist. Die Werte sind die aus dem Einbettungscode von Instagram:
+ * volle Spaltenbreite abzüglich des Rands von je einem Pixel, höchstens 540
+ * Pixel. Wer eine andere Höchstbreite will, überschreibt --instagram-breite
+ * am Element.
+ *
+ * Die Regel trifft nur den iframe. Das blockquote hat bis zum Laden des
+ * Skripts die Einrückung des Browsers und ragte mit voller Breite sonst aus
+ * der Spalte heraus.
+ */
+.ce_instagram iframe.instagram-media {
+    width: calc(100% - 2px);
+    max-width: var(--instagram-breite, 540px);
+}

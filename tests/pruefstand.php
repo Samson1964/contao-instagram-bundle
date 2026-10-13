@@ -195,6 +195,11 @@ $stildatei = $container->getParameter('contao.web_dir') . '/bundles/contaoinstag
 melde('Stildatei im Webverzeichnis veröffentlicht', is_file($stildatei), is_file($stildatei) ? '' : 'assets:install ausführen');
 melde('Stildatei setzt den Abstand auf 20 Pixel', is_file($stildatei) && false !== strpos((string) file_get_contents($stildatei), 'margin-bottom: var(--instagram-abstand, 20px);'));
 
+// Liegen die Assets als Kopie im Webverzeichnis, steht dort nach einer
+// Änderung der Stildatei noch die alte Fassung.
+$breiteFrei = is_file($stildatei) && false !== strpos((string) file_get_contents($stildatei), 'max-width: var(--instagram-breite, 540px);');
+melde('Stildatei gibt die Breite bis 540 Pixel frei', $breiteFrei, $breiteFrei ? '' : 'assets:install wiederholen');
+
 // Der Platzhalter trägt in beiden Fassungen die Nonce des Frameworks; Contao
 // ersetzt ihn beim Ausliefern der Seite durch die Verweise auf die Stildateien.
 $kopf = Controller::replaceDynamicScriptTags('[[TL_CSS_' . ContaoFramework::getNonce() . ']]');
