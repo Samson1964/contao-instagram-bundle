@@ -1,0 +1,13 @@
+# Der einzige Dienst des Bundles ist der Rückruf am Feld instagramUrl. Er steht
+# ausdrücklich als YAML-Tag da und nicht als PHP-Attribut, weil Attribute erst
+# ab PHP 8 ausgewertet werden, das Bundle aber auch unter PHP 7.4 läuft.
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    schachbulle_contao_instagram.listener.post_link:
+        class: Schachbulle\ContaoInstagramBundle\EventListener\PostLinkListener
+        tags:
+            - { name: contao.callback, table: tl_content, target: fields.instagramUrl.save, method: onSave }

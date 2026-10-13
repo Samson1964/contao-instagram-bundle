@@ -1,0 +1,30 @@
+# Quelle für die Metadaten im Contao Manager (contao/package-metadata).
+# Änderungen hier werden von Claude in den Fork übertragen.
+
+de:
+    title: Instagram
+    description: >
+        Inhaltselement, das einen einzelnen Instagram-Beitrag anzeigt: Foto, Reel
+        oder Video. Es genügt der Link zum Beitrag; weder eine Facebook-App noch ein
+        Zugriffsschlüssel sind nötig. Der Beitrag erscheint sofort über die
+        offizielle Einbettung von Instagram.
+    keywords:
+        - Inhaltselement
+        - Instagram
+        - Reel
+        - Einbetten
+        - Social Media
+
+en:
+    title: Instagram
+    description: >
+        Content element that displays a single Instagram post: photo, reel or video.
+        All it needs is the link to the post; neither a Facebook app nor an access
+        token is required. The post is shown immediately via Instagram's official
+        embed.
+    keywords:
+        - content element
+        - instagram
+        - reel
+        - embed
+        - social media
